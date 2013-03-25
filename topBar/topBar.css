@@ -1,0 +1,16 @@
+#topBar
+{
+	width: 100%;
+	height: 25px;
+	background-color: #FA8130;
+}
+
+	#loginTrigger
+	{
+		float: right;
+	}
+
+	#loginHelper
+	{
+		display:none;
+	}

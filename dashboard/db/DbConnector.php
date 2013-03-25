@@ -1,14 +1,14 @@
 <?php
 class DbConnector{
     static private $instance = null;
-    private $host,$user,$pass,$dbname;    
-    
+    private $host,$user,$pass,$dbname;
+
     private function local(){
         $this->host = 'localhost';
         $this->user = 'root';
         $this->pass = '';
-        $this->dbname = 'dashboard';        
-    }   
+        $this->dbname = 'dashboard';
+    }
 
     private function chrisjamholHostedMe()
     {
@@ -17,7 +17,7 @@ class DbConnector{
         $this->pass = '{avq8ge)4Uh_';
         $this->dbname = 'dashboard';
     }
-    
+
     public function connect(){
         $this->local();
         #$this->chrisjamholHostedMe();
@@ -29,15 +29,14 @@ class DbConnector{
         }
         return $db;
     }
-    
-    
+
+
     static public function getInstance(){
         if( DbConnector::$instance === null){
             DbConnector::$instance = new DbConnector();
         }
         return DbConnector::$instance;
     }
-    
+
 }
 ?>
-  
