@@ -8,12 +8,8 @@
 <body>
 	<!-- <h1>Welcome Christopher</h1> -->
 	<?php
-		require_once('facebook/widget.php');
-		FbWidget::setMode("deploy");
-		$fb = new FbWidget();
-		$fbNewsfeed = $fb->getNewsfeed();
-		echo "<br /><br /><br />";
-		var_dump($fbNewsfeed)
+		require_once("dashboard/widget.php");
+		$dashboard = new Dashboard();
 	?>
 </body>
 </html>
