@@ -1,9 +1,9 @@
 <?php
 class ChrisMysqli extends DbConnector
 {
-	protected $host,$user,$pass,$db;
+	protected $host,$user,$pass,$database;
 	public function __construct(){
-		$this->db = DbConnector::getInstance()->connect();
+		$this->database = DbConnector::getInstance()->connect();
 	}
 
 	public function get($query)
@@ -42,14 +42,18 @@ class ChrisMysqli extends DbConnector
 class QueryResult
 {
 	private $query,$queryResult,$numRows;
-	public function __construct($query){ $this->query = $query; $this->queryResult = mysql_query($query); $this->numRows = mysql_num_rows($queryResult);}
+	public function __construct($query){
+		$this->query = $query;
+		$this->queryResult = mysql_query($query);
+		$this->numRows = mysql_num_rows($this->queryResult);
+	}
 
 	public function num_rows(){return $this->numRows;}
 
 	public function fetch_row(){
-		if($queryResult)
+		if($this->queryResult)
 		{
-			return mysql_fetch_row($queryResult);
+			return mysql_fetch_row($this->queryResult);
 		}
 		else{return false;}
 

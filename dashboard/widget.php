@@ -17,7 +17,7 @@ class Dashboard
 
 	private function getLayout()
 	{
-		$
+
 	}
 }
 ?>

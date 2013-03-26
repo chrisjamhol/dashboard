@@ -14,5 +14,6 @@
 		require_once("widget.php");
 		$dashboard = new Dashboard(0);
 	?>
+	<a href="index.php?logout">Logout</a>
 </body>
 </html>
