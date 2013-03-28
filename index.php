@@ -1,22 +1,26 @@
-<html>
 <?php
-$topFolderName = "dashboard";
-$redirectUrl = split("/",substr($_SERVER["REDIRECT_URL"],(strlen($topFolderName)+2)));
-global $widgetName,$widgetEntry;
+#--------------------#
+$baseFolderName = "dashboard";
+$redirectUrl = split("/",substr($_SERVER["REDIRECT_URL"],(strlen($baseFolderName)+2)));
+//var_dump($redirectUrl);
 $widgetName = ucwords(strtolower($redirectUrl[0]));
-$widgetEntrypoint = $redirectUrl[1];
-
-die();
+$widgetPath = $redirectUrl[0]."/".strtolower($widgetName)."_widget.php";
 require_once("includer.php");
+#echo "<br />n: ".$widgetName."<br />";
+#echo "p: ".$widgetPath."<br />";
+#--------------------#
 $login = new Login();
 if($login->isLoggedIn() === false)
 {
-	echo "user not logged in";
-	echo file_get_contents("login/login.html");
+	$login->showLoginPage();
 }
 else
 {
-	require_once("dashboard/dashboard.php");
+	$widgets = WidgetSupervisor::getWidgets($_SESSION['user_mail']);
+	$controller = new Controller($widgets);
+	$controller->initDashboard();
+	echo '<a href="index.php?logout">Logout</a><br /><br />';
+	#$control = new Controller($widgetName,$widgetPath,$redirectUrl);
+	#$controller = new Controller($widgets);
 }
 ?>
-</html>

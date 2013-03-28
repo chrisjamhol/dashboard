@@ -1,38 +1,41 @@
 <?php
-require_once("/includer.php");
 class Login extends ChrisMysqli
 {
-	private $login = false,$mail,$password;
+	private $login = false,$mail,$password,$db;
 
 	public function __construct()
 	{
-		parent::__construct();
+		$this->db = new ChrisMysqli();
 		if($this->db)
 		{
 			session_start();
-			if(isset($_POST['logout']))
+			if(isset($_GET['logout']))
 			{
-				echo "logout";
+				#echo "logout<br />";
 				$_SESSION = array();
             	session_destroy();
             	$this->login = false;
 			}
-			else if(!empty($_SESSION['mail']) && ($_SESSION['loggedIn'] == 1))
+			else if(!empty($_SESSION['user_mail']) && ($_SESSION['user_logged_in'] == 1))
 			{
-				echo "sessionlogin";
+				#echo "sessionlogin<br />";
 				$this->login = true;
 			}
 			else if(isset($_POST['login']))
 			{
-				echo "postlogin";
-				if(!empty($_POST['loginUser']) && !empty($_POST['LoginPass']))
+				#echo "postlogin<br />";
+				if(!empty($_POST['loginUser']) && !empty($_POST['loginPass']))
 				{
 					$this->doPostLogin();
 				}
-				else if(empty($_POST['loginUser'])){echo "empty mail";}
-				else if(empty($_POST['LoginPass'])){echo "empty pass";}
+				else if(empty($_POST['loginUser'])){echo "empty mail<br />";}
+				else if(empty($_POST['loginPass'])){echo "empty pass<br />";}
+				else{echo "no post login operation..<br />";}
 			}
-			else{return false;}
+			else{
+				#echo "no login variante<br />";
+				return false;
+			}
 		}
 		else{echo "no db connection...";}
 	}
@@ -40,14 +43,17 @@ class Login extends ChrisMysqli
 	private function doPostLogin()
 	{
 		$this->mail = $_POST['loginUser'];
-		$loginData = $db->get("SELECT mail,pass FROM user WHERE mail = ".$_POST['loginUser']);
+		#var_dump($this->db);die();
+		$loginData = $this->db->get('SELECT mail,pass FROM user WHERE mail = "'.$_POST['loginUser'].'"');
 		if($loginData->num_rows() == 1)
 		{
 			$loginData = $loginData->fetch_row();
-			if($loginData['pass'] == $_POST['LoginPass'])
+			if($loginData[1] == $_POST['loginPass'])
 			{
+				$_SESSION['user_mail'] = $loginData[0];
+                $_SESSION['user_logged_in'] = 1;
 				$this->login = true;
-                return true;
+				return true;
 			}
 			else{echo "wrong pass";}
 		}
@@ -55,6 +61,11 @@ class Login extends ChrisMysqli
 	}
 
 	public function isLoggedIn(){return $this->login;}
+
+	public function showLoginPage()
+	{
+		echo file_get_contents("login/login.html");
+	}
 
 }
 ?>

@@ -1,2 +1,4 @@
 RewriteEngine On
+RewriteCond %{QUERY_STRING} ^redirect=off
+RewriteRule ^(.*) - [L]
 RewriteRule ^.*$ index.php

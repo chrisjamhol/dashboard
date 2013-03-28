@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'BreeSerif';
+	src: url('../fonts/BreeSerif_Reg.otf');
+	src: local('BreeSerif Regular'), local('BreeSerif'), url('../fonts/BreeSerif_Reg.otf') format('opentype');
+}
+
+body
+{
+	font-family: "Roboto",Arial,sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
