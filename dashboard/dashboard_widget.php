@@ -6,16 +6,15 @@ class Dashboard
 	public function __construct()
 	{
 		$this->userMail = $_SESSION['user_mail'];
-		$this->getWidgets();
 		$this->getLayout();
 	}
-
-	private function getWidgets()
+	
+	private function getLayout()
 	{
 
 	}
 
-	private function getLayout()
+	public function fillGrid($row,$col)
 	{
 
 	}

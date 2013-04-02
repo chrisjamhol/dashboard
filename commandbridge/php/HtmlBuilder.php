@@ -21,7 +21,7 @@ class HtmlBuilder
 				$html .= $this->widget->getBodyCont();
 			$html .= $this->bodyTag['close'];
 		$html .= $this->htmlTag['close'];
-		return $html
+		return $html;
 	}
 }
 ?>
